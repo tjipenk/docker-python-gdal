@@ -3,17 +3,18 @@
 #
 # Build args can be redefined in Makefile or passed as build args to Docker build command
 
-ARG BASE_IMAGE=python:3.10.0-slim-bullseye
+ARG BASE_IMAGE=python:3.12.2-bookworm
 
 FROM ${BASE_IMAGE}
 
-LABEL maintainer="Andrii Rieznik <andrii.rieznik@protonmail.com>"
+# LABEL maintainer="Andrii Rieznik <andrii.rieznik@protonmail.com>"
+LABEL maintainer="tjipenk <tjipenk@gmail.com>"
 
-LABEL org.opencontainers.image.source=https://github.com/andriyreznik/docker-python-gdal
+LABEL org.opencontainers.image.source=https://github.com/tjipenk/docker-python-gdal
 LABEL org.opencontainers.image.description="Debian based image with pre-installed GDAL/OGR libraries and Python bindings"
 LABEL org.opencontainers.image.licenses=MIT
 
-ARG GDAL_VERSION=3.2.3
+ARG GDAL_VERSION=3.8.4
 ARG SOURCE_DIR=/usr/local/src/python-gdal
 
 RUN \
@@ -39,9 +40,9 @@ RUN \
 # Install numpy
     && pip install numpy \
 # Build against PROJ master (which will be released as PROJ 6.0)
-    && wget "http://download.osgeo.org/proj/proj-6.0.0.tar.gz" \
-    && tar -xzf "proj-6.0.0.tar.gz" \
-    && mv proj-6.0.0 proj \
+    && wget "https://download.osgeo.org/proj/proj-7.1.1.tar.gz" \
+    && tar -xzf "proj-7.1.1.tar.gz" \
+    && mv proj-7.1.1 proj \
     && echo "#!/bin/sh" > proj/autogen.sh \
     && chmod +x proj/autogen.sh \
     && cd proj \
